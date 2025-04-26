@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Whispr - Anonymous. Secure. Untraceable.</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Login View -->
+  <div id="login-view" class="view">
+    <div class="login-container">
+      <div class="logo-container">
+        <div class="logo">
+            <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- Person 1 (whispering) -->  
+                <circle cx="50" cy="50" r="20" fill="#001f3f"/>
+                <path d="M 50 50 Q 60 40 70 50" stroke="#001f3f" stroke-width="2" fill="none"/>
+                <path d="M 50 60 Q 55 65 60 60" stroke="#001f3f" stroke-width="2" fill="none"/>
+              
+                <!-- Person 2 (listening) -->
+                <circle cx="120" cy="50" r="20" fill="#001f3f"/>
+                <path d="M 120 50 Q 130 45 135 50" stroke="#001f3f" stroke-width="2" fill="none"/>
+              </svg>
+              
+        </div>
+      </div>
+      <h1>whispr</h1>
+      <p class="tagline">Anonymous. Secure. Untraceable.</p>
+      <div class="username-display">
+        <p>Your anonymous identity:</p>
+        <div class="username-badge" id="assigned-username"></div>
+      </div>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="password">Choose a Password</label>
+          <div class="password-input-container">
+            <input type="password" id="password" placeholder="Minimum 4 characters" required />
+            <svg class="input-icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary">
+          Enter the Shadows
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+            <path d="M5 12h14"/>
+            <path d="M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </form>
+      <div id="login-error" class="error"></div>
+      <p class="security-note">No logs. No traces. Complete anonymity.</p>
+    </div>
+  </div>
+
+  <!-- Board View -->
+  <div id="board-view" class="view hidden">
+    <header>
+      <div class="header-content">
+        <div class="header-left">
+          <svg viewBox="0 0 64 64" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+          </svg>
+          <h2>WHISPR BOARD</h2>
+        </div>
+        <button id="new-whispr-btn" class="btn-whispr">
+          <svg class="btn-icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="16"></line>
+            <line x1="8" y1="12" x2="16" y2="12"></line>
+          </svg>
+          <span>New Whispr</span>
+        </button>
+      </div>
+    </header>
+    
+    <div id="post-form-container" class="hidden">
+      <div class="form-card">
+        <div class="form-header">
+          <h3>New Whispr</h3>
+          <button class="close-form" id="close-form">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <textarea id="whispr-text" placeholder="Share your thoughts anonymously..."></textarea>
+        <div class="form-actions">
+          <label for="attachment" class="attachment-label">
+            <svg class="attachment-icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+              <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+            </svg>
+            <span>Attach Files</span>
+            <input type="file" id="attachment" multiple />
+          </label>
+          <button id="post-whispr" class="btn-post">
+            <span>Post Whispr</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <div id="posts"></div>
+  </div>
+
+  <!-- Nodes View -->
+  <div id="nodes-view" class="view hidden">
+    <header>
+      <div class="header-content">
+        <div class="header-left">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+          <h2>Network Nodes</h2>
+        </div>
+        <div class="node-filter">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="active">Active</button>
+          <button class="filter-btn" data-filter="premium">Premium</button>
+        </div>
+      </div>
+    </header>
+    
+    <div class="nodes-list">
+      <div class="node">
+        <div class="node-content">
+          <svg class="node-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+            <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+            <line x1="7" y1="2" x2="7" y2="22"></line>
+            <line x1="17" y1="2" x2="17" y2="22"></line>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <line x1="2" y1="7" x2="7" y2="7"></line>
+            <line x1="2" y1="17" x2="7" y2="17"></line>
+            <line x1="17" y1="17" x2="22" y2="17"></line>
+            <line x1="17" y1="7" x2="22" y2="7"></line>
+          </svg>
+          <span class="node-name">Node Alpha</span>
+        </div>
+        <div class="node-status active">Active</div>
+      </div>
+      
+      <div class="node premium">
+        <div class="node-content">
+          <svg class="node-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span class="node-name">Node Secure</span>
+        </div>
+        <div class="premium-badge">
+          <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+            <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+          Premium
+        </div>
+      </div>
+      
+      <div class="node">
+        <div class="node-content">
+          <svg class="node-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span class="node-name">Node Global</span>
+        </div>
+        <div class="node-status inactive">Offline</div>
+      </div>
+      
+      <div class="empty-state">
+        <div class="empty-icon">
+          <svg viewBox="0 0 24 24" width="48" height="48" stroke="currentColor" stroke-width="1.5" fill="none">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+            <line x1="1" y1="1" x2="23" y2="23"></line>
+          </svg>
+        </div>
+        <h3>No More Nodes Available</h3>
+        <p>Connect to premium nodes for enhanced privacy and speed</p>
+        <button class="btn-upgrade">Upgrade to Premium</button>
+      </div>
+    </div>
+  </div>
+
+  <nav class="bottom-nav glassy">
+    <button id="nav-boards" class="active">
+      <svg class="nav-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+        <rect x="3" y="3" width="7" height="7"></rect>
+        <rect x="14" y="3" width="7" height="7"></rect>
+        <rect x="14" y="14" width="7" height="7"></rect>
+        <rect x="3" y="14" width="7" height="7"></rect>
+      </svg>
+      <span class="nav-text">Boards</span>
+    </button>
+    <button id="nav-nodes">
+      <svg class="nav-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+        <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+        <line x1="12" y1="22.08" x2="12" y2="12"/>
+      </svg>
+      <span class="nav-text">Nodes</span>
+    </button>
+    <button id="nav-profile">
+      <svg class="nav-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+      <span class="nav-text">Profile</span>
+    </button>
+  </nav>
+
+  <script src="script.js"></script>
+</body>
+</html>
