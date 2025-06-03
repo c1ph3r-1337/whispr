@@ -1,6 +1,6 @@
 # Whispr
 
-**Made by fsociety ( c!ph3r1337 aka Jaskaran Singh , Rahul Garg )**
+**Made by fsociety ( c1ph3r1337 aka Jaskaran Singh , Rahul Garg )**
 
 **Anonymous. Secure. Untraceable.**
 
